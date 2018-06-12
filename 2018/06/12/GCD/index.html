@@ -82,11 +82,11 @@
 <meta name="description" content="引言早上在群里看到有人发了份面试题，顺道做了一下，发现关于GCD的部分自己做错了，因此也就有了这篇博客，重新再复习下相关知识。 原题请写出以下代码的执行顺序：123456789101112131415161718192021222324252627- (void)test_progress &amp;#123;    dispatch_async(dispatch_get_main_queue(), ^&amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GCD面试题-串行、并发、全局队列分析">
-<meta property="og:url" content="https://hongshushu.github.io/2018/05/21/GCD/index.html">
+<meta property="og:url" content="https://hongshushu.github.io/2018/06/12/GCD/index.html">
 <meta property="og:site_name" content="红蜀黍&#39;s blog">
 <meta property="og:description" content="引言早上在群里看到有人发了份面试题，顺道做了一下，发现关于GCD的部分自己做错了，因此也就有了这篇博客，重新再复习下相关知识。 原题请写出以下代码的执行顺序：123456789101112131415161718192021222324252627- (void)test_progress &amp;#123;    dispatch_async(dispatch_get_main_queue(), ^&amp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-21T10:24:53.595Z">
+<meta property="og:updated_time" content="2018-06-12T07:37:01.754Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GCD面试题-串行、并发、全局队列分析">
 <meta name="twitter:description" content="引言早上在群里看到有人发了份面试题，顺道做了一下，发现关于GCD的部分自己做错了，因此也就有了这篇博客，重新再复习下相关知识。 原题请写出以下代码的执行顺序：123456789101112131415161718192021222324252627- (void)test_progress &amp;#123;    dispatch_async(dispatch_get_main_queue(), ^&amp;">
@@ -119,7 +119,7 @@
 
 
 
-  <link rel="canonical" href="https://hongshushu.github.io/2018/05/21/GCD/"/>
+  <link rel="canonical" href="https://hongshushu.github.io/2018/06/12/GCD/"/>
 
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hongshushu.github.io/2018/05/21/GCD/">
+    <link itemprop="mainEntityOfPage" href="https://hongshushu.github.io/2018/06/12/GCD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hongShuShu">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T18:24:53+08:00">
-                2018-05-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T15:37:01+08:00">
+                2018-06-12
               </time>
             
 
@@ -301,6 +301,7 @@
       
         <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>早上在群里看到有人发了份面试题，顺道做了一下，发现关于GCD的部分自己做错了，因此也就有了这篇博客，重新再复习下相关知识。</p>
 <h2 id="原题"><a href="#原题" class="headerlink" title="原题"></a>原题</h2><p>请写出以下代码的执行顺序：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)test_progress &#123;</span><br><span class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"A = %@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"B = %@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">dispatch_queue_t</span> que_tmp = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">dispatch_sync</span>(que_tmp, ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"C = %@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">dispatch_async</span>(que_tmp, ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"D = %@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"E = %@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(method) withObject:<span class="literal">nil</span> afterDelay:<span class="number">0.0</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"F = %@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)method &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"G = %@"</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>在分析题前先回顾下GCD基础知识，<a href="https://github.com/hongShuShu/gcd" target="_blank" rel="noopener">demo</a><br>由demo得出结论：</p>
 <font color="red">串行同步:在当前线程顺序执行</font><br><font color="red">串行异步:开新线程，在新线程顺序执行</font><br><font color="red">并发同步:不开线程，在当前线程顺序执行</font><br><font color="red">并发异步:开多个线程，无序执行</font><br><font color="red">主队列异步:不开线程，在当前线程顺序执行</font><br><font color="red">主队列同步:主队列和主线程互相等待，造成“死锁”</font>
 
@@ -333,7 +334,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/17/mitmproxy/" rel="next" title="抓包神器：mitmproxy安装及使用">
+              <a href="/2018/06/12/mitmproxy/" rel="next" title="抓包神器：mitmproxy安装及使用">
                 <i class="fa fa-chevron-left"></i> 抓包神器：mitmproxy安装及使用
               </a>
             
