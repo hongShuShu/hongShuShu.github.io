@@ -84,17 +84,17 @@
 
 
 
-<meta name="description" content="Welcome to hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="grep命令格式：grep -options pattern file作用：配合正则使用，根据文件内容过滤或搜索特定字符。 主要参数-c:只输出匹配行的计数-i:不区分大小写-h:查询多文件时不显示文件名-l:查询多文件时只输出包含匹配字符的文件名-n:显示匹配行及行号-s:不显示不存在或无匹配文本的错误信息-v:显示不包含匹配文本的所有行–color=auto:可以将找到的关键词部分加上颜色显示">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://hongshushu.github.io/2018/05/17/hello-world/index.html">
+<meta property="og:title" content="常用shell命令——grep、find">
+<meta property="og:url" content="https://hongshushu.github.io/2018/07/19/20180719_常用shell命令/index.html">
 <meta property="og:site_name" content="红蜀黍&#39;s 杂货铺">
-<meta property="og:description" content="Welcome to hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="grep命令格式：grep -options pattern file作用：配合正则使用，根据文件内容过滤或搜索特定字符。 主要参数-c:只输出匹配行的计数-i:不区分大小写-h:查询多文件时不显示文件名-l:查询多文件时只输出包含匹配字符的文件名-n:显示匹配行及行号-s:不显示不存在或无匹配文本的错误信息-v:显示不包含匹配文本的所有行–color=auto:可以将找到的关键词部分加上颜色显示">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-17T02:36:05.671Z">
+<meta property="og:updated_time" content="2018-07-20T08:02:59.966Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="常用shell命令——grep、find">
+<meta name="twitter:description" content="grep命令格式：grep -options pattern file作用：配合正则使用，根据文件内容过滤或搜索特定字符。 主要参数-c:只输出匹配行的计数-i:不区分大小写-h:查询多文件时不显示文件名-l:查询多文件时只输出包含匹配字符的文件名-n:显示匹配行及行号-s:不显示不存在或无匹配文本的错误信息-v:显示不包含匹配文本的所有行–color=auto:可以将找到的关键词部分加上颜色显示">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://hongshushu.github.io/2018/05/17/hello-world/"/>
+  <link rel="canonical" href="https://hongshushu.github.io/2018/07/19/20180719_常用shell命令/"/>
 
 
 
 
 
-  <title>Hello World | 红蜀黍's 杂货铺</title>
+  <title>常用shell命令——grep、find | 红蜀黍's 杂货铺</title>
   
 
 
@@ -237,7 +237,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hongshushu.github.io/2018/05/17/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://hongshushu.github.io/2018/07/19/20180719_常用shell命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hongShuShu">
@@ -254,7 +254,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">常用shell命令——grep、find</h1>
         
 
         <div class="post-meta">
@@ -266,8 +266,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-17T10:36:05+08:00">
-                2018-05-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-19T22:14:08+08:00">
+                2018-07-19
               </time>
             
 
@@ -309,15 +309,14 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>命令格式：grep -options pattern file<br>作用：配合正则使用，根据文件内容过滤或搜索特定字符。</p>
+<p>主要参数<br>-c:只输出匹配行的计数<br>-i:不区分大小写<br>-h:查询多文件时不显示文件名<br>-l:查询多文件时只输出包含匹配字符的文件名<br>-n:显示匹配行及行号<br>-s:不显示不存在或无匹配文本的错误信息<br>-v:显示不包含匹配文本的所有行<br>–color=auto:可以将找到的关键词部分加上颜色显示<br>-r:递归找子目录<br>-d:忽略子目录<br>\&lt; 和 > 标记单词的开始与结尾<br>^:表示匹配以表达式开头<br>$:表示匹配以表达式结尾</p>
+<p>例子：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">grep 'start' 1.9_time_take.sh</span><br><span class="line">作用：显示此文件中包含start的行</span><br><span class="line"></span><br><span class="line">grep '[a-z]\&#123;5\&#125;' 1.9_time_take.sh</span><br><span class="line">作用：显示此文件中包含每个字符串有5个联系小写字符的行</span><br><span class="line"></span><br><span class="line">grep '^end' 1.9_time_take.sh</span><br><span class="line">作用：匹配本文件以end开头的行</span><br><span class="line"></span><br><span class="line">grep -c '#*' 1.8_password.sh 1.9_time_take.sh</span><br><span class="line">作用：统计当前目录下这两个文件中包含#的行数</span><br></pre></td></tr></table></figure></p>
+<p>如果输出很多，可以通过管道符将内容转到‘less’上阅读。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep g test.txt | less</span><br></pre></td></tr></table></figure></p>
+<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>根据文件名过滤<br>命令格式：<br>find pathname -options [-print -exec -ok …]<br>命令-&gt;查找路径-参数-&gt;匹配表达式-&gt;要查询的文件.</p>
+<p>主要参数<br>-exec: 将匹配到的文件执行后面的shell命令<br>命令选项<br>-name: 按照文件名查找文件<br>-perm: 按照文件权限来查找文件<br>-prune: 不在当前指定的目录中查找<br>-type: 查找某一类型的文件<br>        <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">b - 块设备文件</span><br><span class="line">d - 目录</span><br><span class="line">c - 字符设备文件</span><br><span class="line">p - 管道文件</span><br><span class="line">l - 符号链接文件</span><br><span class="line">f - 普通文件</span><br></pre></td></tr></table></figure><br>-size n: 查找文件长度为n的文件<br>-depth: 先查找当前目录中的文件，再在子目录中查询</p>
+<p>例子：</p>
+<p><font color="red"> {} \;   是-exec的固定写法；和-ok等价，ok会向用户确认操作 </font><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">find . -type f -exec ls -l &#123;&#125; \;</span><br><span class="line">作用：找到当前目录下的普通文件，查看文件属性</span><br><span class="line"></span><br><span class="line">find . -type d | sort</span><br><span class="line">作用：查找当前目录中所有子目录并排序</span><br><span class="line"></span><br><span class="line">find . -name "*.sh" -print</span><br><span class="line">作用：找到当前目录下后缀是sh的文件并输出</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -342,15 +341,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/07/04/Thailand/" rel="next" title="泰国旅游攻略">
+                <i class="fa fa-chevron-left"></i> 泰国旅游攻略
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/12/mitmproxy/" rel="prev" title="抓包神器：mitmproxy安装及使用">
-                抓包神器：mitmproxy安装及使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -464,7 +463,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">1.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">2.</span> <span class="nav-text">find</span></a></li></ol></div>
             
 
           </div>
