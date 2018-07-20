@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="红蜀黍&#39;s 杂货铺">
 <meta property="og:description" content="grep命令格式：grep -options pattern file作用：配合正则使用，根据文件内容过滤或搜索特定字符。 主要参数-c:只输出匹配行的计数-i:不区分大小写-h:查询多文件时不显示文件名-l:查询多文件时只输出包含匹配字符的文件名-n:显示匹配行及行号-s:不显示不存在或无匹配文本的错误信息-v:显示不包含匹配文本的所有行–color=auto:可以将找到的关键词部分加上颜色显示">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-20T08:02:59.966Z">
+<meta property="og:updated_time" content="2018-07-20T10:23:12.246Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用shell命令——grep、find">
 <meta name="twitter:description" content="grep命令格式：grep -options pattern file作用：配合正则使用，根据文件内容过滤或搜索特定字符。 主要参数-c:只输出匹配行的计数-i:不区分大小写-h:查询多文件时不显示文件名-l:查询多文件时只输出包含匹配字符的文件名-n:显示匹配行及行号-s:不显示不存在或无匹配文本的错误信息-v:显示不包含匹配文本的所有行–color=auto:可以将找到的关键词部分加上颜色显示">
@@ -317,6 +317,11 @@
 <p>主要参数<br>-exec: 将匹配到的文件执行后面的shell命令<br>命令选项<br>-name: 按照文件名查找文件<br>-perm: 按照文件权限来查找文件<br>-prune: 不在当前指定的目录中查找<br>-type: 查找某一类型的文件<br>        <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">b - 块设备文件</span><br><span class="line">d - 目录</span><br><span class="line">c - 字符设备文件</span><br><span class="line">p - 管道文件</span><br><span class="line">l - 符号链接文件</span><br><span class="line">f - 普通文件</span><br></pre></td></tr></table></figure><br>-size n: 查找文件长度为n的文件<br>-depth: 先查找当前目录中的文件，再在子目录中查询</p>
 <p>例子：</p>
 <p><font color="red"> {} \;   是-exec的固定写法；和-ok等价，ok会向用户确认操作 </font><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">find . -type f -exec ls -l &#123;&#125; \;</span><br><span class="line">作用：找到当前目录下的普通文件，查看文件属性</span><br><span class="line"></span><br><span class="line">find . -type d | sort</span><br><span class="line">作用：查找当前目录中所有子目录并排序</span><br><span class="line"></span><br><span class="line">find . -name "*.sh" -print</span><br><span class="line">作用：找到当前目录下后缀是sh的文件并输出</span><br></pre></td></tr></table></figure></p>
+<h3 id="xargs"><a href="#xargs" class="headerlink" title="xargs"></a>xargs</h3><p>上面说到了 -exec,是智行后面的shell，但是他有一个缺点就是会等待前面的命令执行完成之后再执行。<br>假如要查的文件很大，就会把缓冲区撑爆。那有人就说了，能不能找到了一部分文件就去执行后续操作，别等全部查询完再执行不就好了吗？是的，xargs就是解决这个问题的，前面边查询，后面边执行。</p>
+<h3 id="xargs-1"><a href="#xargs-1" class="headerlink" title="xargs"></a>xargs</h3><p>作用：一行一行读取待处理文件，把待处理文件的内容和处理结果一起输出到标注输出。</p>
+<p>常用命令：<br>/pattern/p      打印匹配pattern的行<br>/pattern/d      删除匹配pattern的行<br>/pattern/s/pattern1/pattern2/           查找符合pattern的行，将第一个匹配pattern1的字符替换成pattern2<br>/pattern/s/pattern1/pattern2/g           查找符合pattern的行，将该行所有匹配pattern1的字符替换成pattern2</p>
+<p>a,append        追加<br>i,insert            插入<br>d,delete          删除<br>s,substitution 替换</p>
+<p>例子:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sed '/taken/p' 1.9_time_take.sh</span><br><span class="line">作用：查找当前文件的包含taken的行</span><br><span class="line"></span><br><span class="line">sed -e '/qwe/d' test.txt</span><br><span class="line">作用：删除文件中包含qwe的行，但不改变源文件，结果在终端界面显示</span><br><span class="line"></span><br><span class="line">sed '2,3d' test.txt</span><br><span class="line">作用：删除文件第2行到第3行，但不改变源文件</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -463,7 +468,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">1.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">2.</span> <span class="nav-text">find</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">1.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">2.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xargs"><span class="nav-number">3.</span> <span class="nav-text">xargs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xargs-1"><span class="nav-number">4.</span> <span class="nav-text">xargs</span></a></li></ol></div>
             
 
           </div>
