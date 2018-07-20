@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="红蜀黍&#39;s 杂货铺">
 <meta property="og:description" content="grep命令格式：grep -options pattern file作用：配合正则使用，根据文件内容过滤或搜索特定字符。 主要参数-c:只输出匹配行的计数-i:不区分大小写-h:查询多文件时不显示文件名-l:查询多文件时只输出包含匹配字符的文件名-n:显示匹配行及行号-s:不显示不存在或无匹配文本的错误信息-v:显示不包含匹配文本的所有行–color=auto:可以将找到的关键词部分加上颜色显示">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-20T10:28:07.333Z">
+<meta property="og:updated_time" content="2018-07-20T12:00:01.954Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用shell命令——grep、find">
 <meta name="twitter:description" content="grep命令格式：grep -options pattern file作用：配合正则使用，根据文件内容过滤或搜索特定字符。 主要参数-c:只输出匹配行的计数-i:不区分大小写-h:查询多文件时不显示文件名-l:查询多文件时只输出包含匹配字符的文件名-n:显示匹配行及行号-s:不显示不存在或无匹配文本的错误信息-v:显示不包含匹配文本的所有行–color=auto:可以将找到的关键词部分加上颜色显示">
@@ -320,8 +320,12 @@
 <h3 id="xargs"><a href="#xargs" class="headerlink" title="xargs"></a>xargs</h3><p>上面说到了 -exec,是智行后面的shell，但是他有一个缺点就是会等待前面的命令执行完成之后再执行。<br>假如要查的文件很大，就会把缓冲区撑爆。那有人就说了，能不能找到了一部分文件就去执行后续操作，别等全部查询完再执行不就好了吗？是的，xargs就是解决这个问题的，前面边查询，后面边执行。</p>
 <h3 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h3><p>作用：一行一行读取待处理文件，把待处理文件的内容和处理结果一起输出到标注输出。</p>
 <p>常用命令：<br>/pattern/p      打印匹配pattern的行<br>/pattern/d      删除匹配pattern的行<br>/pattern/s/pattern1/pattern2/           查找符合pattern的行，将第一个匹配pattern1的字符替换成pattern2<br>/pattern/s/pattern1/pattern2/g           查找符合pattern的行，将该行所有匹配pattern1的字符替换成pattern2</p>
+<p>-n: 静默输出，’/pattern/p’默认会把匹配行重复一遍和源文件一起输出，加上此参数会只输出匹配项<br>-f: 从文件中读取脚本<br>-i: 处理后的内容会修改源文件！！！<br>-r: 使用扩展正则表达式</p>
 <p>a,append        追加<br>i,insert            插入<br>d,delete          删除<br>s,substitution 替换</p>
-<p>例子:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sed '/taken/p' 1.9_time_take.sh</span><br><span class="line">作用：查找当前文件的包含taken的行</span><br><span class="line"></span><br><span class="line">sed -e '/qwe/d' test.txt</span><br><span class="line">作用：删除文件中包含qwe的行，但不改变源文件，结果在终端界面显示</span><br><span class="line"></span><br><span class="line">sed '2,3d' test.txt</span><br><span class="line">作用：删除文件第2行到第3行，但不改变源文件</span><br></pre></td></tr></table></figure></p>
+<p>例子:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sed '/taken/p' 1.9_time_take.sh</span><br><span class="line">作用：查找当前文件的包含taken的行</span><br><span class="line"></span><br><span class="line">sed -e '/qwe/d' test.txt</span><br><span class="line">作用：删除文件中包含qwe的行，但不改变源文件，结果在终端界面显示</span><br><span class="line"></span><br><span class="line">sed '2,3d' test.txt</span><br><span class="line">作用：删除文件第2行到第3行，但不改变源文件</span><br></pre></td></tr></table></figure><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i '' -e '1i \</span><br><span class="line">Hello World.' test.txt</span><br></pre></td></tr></table></figure><br>作用：在第一行插入Hello Word<br>插入语句在测试的时候一直显示失败，经过搜索，发现是我环境的原因。</p>
+<blockquote>
+<p>这条命令在Mac OS X下运行会失败，除非你已经使用GNU的sed替换了系统的内置sed，FreeBSD下也一样，经过反复测试，得出BSD版本的sed需要使用上面的办法。<br>即在1i后加入空格在加入一个反斜杠 \ ，回车后 另起一行，在下一行输入要插入的内容，以单引号结束，后面跟文件名,可以正常运行。<br>这样的命令在GNU版本下的sed同样可以正常运行。<br>原文链接在这里:<a href="https://my.oschina.net/jsk/blog/166974" target="_blank" rel="noopener">点我查看</a></p>
+</blockquote>
 
       
     </div>
